@@ -5,13 +5,15 @@ import axios from "axios";
 export default function Auth() {
   const {secret,username, setUsername, setSecret } = useContext(Context);
   const router = useRouter();
+  
+  const appkey = process.env.REACT_APP_APIKEY;
   function onSubmit(e) {
     e.preventDefault();
     if (username.length === 0 || secret.length === 0) return;
     axios.put(
       'https://api.chatengine.io/users/',
         { username, secret },
-        {headers:{"Private-key":'d197c9fd-ed87-4eda-9bba-7b2943f73ca3'}}
+        {headers:{"Private-key":{appkey}}}
     )
     .then(
       r=>router.push('/chats'))
